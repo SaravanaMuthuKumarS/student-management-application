@@ -16,6 +16,7 @@ public class HibernateConnection {
    * <p>
    * SessionFactory method is responsible for returning the Hibernate SessionFactory.
    * </p>
+   * @return sessionFactory
    */
   public static SessionFactory getSessionFactory() {
     return sessionFactory;
