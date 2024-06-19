@@ -8,6 +8,12 @@ import org.hibernate.Transaction;
 import com.i2i.sms.helper.HibernateConnection;
 import com.i2i.sms.model.Student;
 
+/**
+ * <p>
+ * CommonController class handles the interaction between the user and the application.
+ * It provides various functionalities such as accepting and adding Students details
+ * </p>
+ */
 public class CommonController {
   private static Scanner scanner = new Scanner(System.in);
 
@@ -24,6 +30,14 @@ public class CommonController {
     System.out.println(student);
   }
 
+  /**
+   * <p>
+   * This method is used insert the student details into the database.
+   * </p>
+   * @param student
+   *       Student object.
+   * @return student - student object.
+   */ 
   public static Student insertStudent(Student student) {
     Transaction transaction = null;
     try (Session session = HibernateConnection.getSessionFactory().openSession()) {
