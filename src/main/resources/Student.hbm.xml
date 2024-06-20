@@ -1,13 +1,14 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
-"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-  <class name="com.i2i.sms.model.Student" table="students">
-    <id name="id" column="id" >
-      <generator class="native" />
-    </id>
-    <property name="name" type="string" column="name" />
-    <property name="standard" type="int" column="standard" />
-    <property name="section" type="string" column="section" />
-  </class>
+"-//Hibernate/Hibernate Mapping DTD 5.3//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-5.3.dtd">  
+  
+<hibernate-mapping>  
+  <class name = "com.i2i.sms.models.Student" table = "students">  
+    <id name = "id" column = "id" type = "int">  
+      <generator class = "identity"></generator>  
+    </id>  
+    <property name = "name" column = "name" type = "string"></property>  
+    <property name = "dob" column = "dob" type = "org.hibernate.type.LocalDateType"></property>
+    <many-to-one name="group" column = "group_id" fetch = "join" />           
+  </class>          
 </hibernate-mapping>
