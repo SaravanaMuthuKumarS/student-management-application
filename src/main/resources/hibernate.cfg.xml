@@ -8,13 +8,13 @@
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/studentbase</property>
     <property name="hibernate.connection.username">goodman</property>
     <property name="hibernate.connection.password">1975</property>
-    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.show_sql">false</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <property name="hibernate.debug">true</property>
+    <property name="hibernate.debug">false</property>
 
-    <mapping resource="Student.hbm.xml"/>
-    <mapping resource="Group.hbm.xml"/>
-    <mapping resource="Teacher.hbm.xml"/>
-    <mapping resource="Cabin.hbm.xml"/>
+    <mapping class="com.i2i.sms.models.Student"/>
+    <mapping class="com.i2i.sms.models.Group"/>
+    <mapping class="com.i2i.sms.models.Teacher"/>
+    <mapping class="com.i2i.sms.models.Cabin"/>
   </session-factory>
 </hibernate-configuration>
