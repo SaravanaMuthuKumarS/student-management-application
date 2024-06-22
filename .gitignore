@@ -3,4 +3,6 @@
 /workspace.xml
 /target/
 *.class
-/lib/
+.idea/
+.env
+

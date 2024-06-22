@@ -1,3 +1,4 @@
+
 package com.i2i.sms.models;
 
 import javax.persistence.Entity;
@@ -20,55 +21,60 @@ import javax.persistence.JoinColumn;
 @Table(name = "cabins")
 public class Cabin {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-  @Column(name = "department", nullable = false)
-  private String department;
+    @Column(name = "department", nullable = false)
+    private String department;
 
-  @OneToOne
-  @JoinColumn(name = "teacher_id")
-  private Teacher teacher;
+    @OneToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
-  public Cabin() {}
+    public Cabin() {
+    }
 
-  public Cabin(String department) {
-    this.department = department;
-  }
+    public Cabin(String department) {
+        this.department = department;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-  public void setDepartment(String department) {
-    this.department = department;
-  }
-  public void setTeacher(Teacher teacher) {
-    this.teacher = teacher;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-  public int getId() {
-    return id;
-  }
-  public String getDepartment() {
-    return department;
-  }
-  public Teacher getTeacher() {
-    return teacher;
-  }
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
-  /**
-   * <p>
-   * Prints the string representation of the Cabin Object, including the Cabin's data
-   * Such as CabinId, Teacher Name and Subject using String Builder.
-   * </p>
-   * @return String representation of the Cabin Data.
-   */
-  public String toString() {
-    StringBuilder cabinData = new StringBuilder();
-    cabinData.append("\nCabin -- Details :\n");
-    cabinData.append("Cabin ID : ").append(id).append(", ");
-    cabinData.append("Department : ").append(department).append("\n");
-    return cabinData.toString();
-  }
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    /**
+     * <p>
+     * Prints the string representation of the Cabin Object, including the Cabin's data
+     * Such as CabinId, Teacher Name and Subject using String Builder.
+     * </p>
+     * @return String representation of the Cabin Data.
+     */
+    public String toString() {
+        StringBuilder cabinData = new StringBuilder();
+        cabinData.append("\nCabin -- Details :\n");
+        cabinData.append("Cabin ID : ").append(id).append(", ");
+        cabinData.append("Department : ").append(department).append("\n");
+        return cabinData.toString();
+    }
 }

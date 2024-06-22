@@ -1,15 +1,12 @@
 package com.i2i.sms.controller;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Group;
 import com.i2i.sms.models.Student;
-import com.i2i.sms.service.GroupService;
 import com.i2i.sms.service.StudentService;
 import com.i2i.sms.utils.DateUtils;
 import com.i2i.sms.utils.ValidateDataUtils;
@@ -25,7 +22,6 @@ import com.i2i.sms.utils.ValidateDataUtils;
 public class StudentController {
 
   private static Scanner scanner = new Scanner(System.in);
-  private GroupService groupService = new GroupService();
   private StudentService studentService = new StudentService();
 
   /**

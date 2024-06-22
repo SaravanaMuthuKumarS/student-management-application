@@ -1,9 +1,7 @@
 package com.i2i.sms.controller;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Group;
