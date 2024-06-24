@@ -1,9 +1,8 @@
 import java.util.Scanner;
 
-import com.i2i.sms.controller.CabinController;
-import com.i2i.sms.controller.GroupController;
-import com.i2i.sms.controller.StudentController;
-import com.i2i.sms.controller.TeacherController;
+import io.github.cdimascio.dotenv.Dotenv;
+
+import com.i2i.sms.controller.*;
 
 /**
  * <p>
@@ -17,6 +16,7 @@ import com.i2i.sms.controller.TeacherController;
 public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
+    private static AdminController adminController = new AdminController();
     private static CabinController cabinController = new CabinController();
     private static GroupController groupController = new GroupController();
     private static StudentController studentController = new StudentController();
@@ -30,12 +30,15 @@ public class Main {
      * @return true if credentials are valid, otherwise false.
      */
     public static boolean adminValidate() {
+        Dotenv dotenv = Dotenv.load();
+        String userName = dotenv.get("user");
+        String password = dotenv.get("password");
         System.out.println("\nEnter UserName :");
-        String userName = scanner.next();
+        String user = scanner.next();
         System.out.println("\nEnter Password :");
-        int password = scanner.nextInt();
+        String key = scanner.next();
         System.out.print("\n");
-        return userName.equals("admin") && password == 123;
+        return user.equals(userName) && key.equals(password);
     }
 
     public static void main(String[] args) {
@@ -50,7 +53,8 @@ public class Main {
             System.out.println("2. Fetch School Data ( Admin Purpose Only )");
             System.out.println("3. Search for Particular Data by their Id");
             System.out.println("4. Remove a Particular School Data ( Admin Purpose Only )");
-            System.out.println("5. Exit\n");
+            System.out.println("5. Edit Admin Details ( Admin Purpose Only )");
+            System.out.println("6. Exit\n");
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
@@ -65,12 +69,12 @@ public class Main {
                             studentController.createStudent();
                             break;
                         case 2:
-                            if (adminValidate()) {
-                                groupController.createGroup();
-                            }
-                            break;
+                            if (adminController.isAdminAvailable()){
+                            groupController.createGroup();
+                        }
+                        break;
                         case 3:
-                            if (adminValidate()) {
+                            if (adminController.isAdminAvailable()) {
                                 teacherController.createTeacher();
                             }
                             break;
@@ -80,7 +84,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    if (adminValidate()) {
+                    if (adminController.isAdminAvailable()) {
                         System.out.println("\n 1--> Fetch the Student Details");
                         System.out.println("\n 2--> Fetch the Group Details");
                         System.out.println("\n 3--> Fetch the Teacher Details");
@@ -122,21 +126,21 @@ public class Main {
                             studentController.searchStudentById();
                             break;
                         case 2:
-                            if (adminValidate()) {
+                            if (adminController.isAdminAvailable()) {
                                 groupController.searchGroupById();
                             } else {
                                 System.out.println("Invalid User-Id and Password");
                             }
                             break;
                         case 3:
-                            if (adminValidate()) {
+                            if (adminController.isAdminAvailable()) {
                                 teacherController.searchTeacherById();
                             } else {
                                 System.out.println("Invalid User-Id and Password");
                             }
                             break;
                         case 4:
-                            if (adminValidate()) {
+                            if (adminController.isAdminAvailable()) {
                                 cabinController.searchCabinById();
                             } else {
                                 System.out.println("Invalid User-Id and Password");
@@ -148,7 +152,7 @@ public class Main {
                     }
                     break;
                 case 4:
-                    if (adminValidate()) {
+                    if (adminController.isAdminAvailable()) {
                         System.out.println("\n 1--> Remove a Student Details");
                         System.out.println("\n 2--> Remove a Group Detail");
                         System.out.println("\n 3--> Remove a Teacher Detail\n");
@@ -174,6 +178,28 @@ public class Main {
                     }
                     break;
                 case 5:
+                    if (adminValidate()) {
+                        System.out.println("\n 1--> Add a Admin Data");
+                        System.out.println("\n 2--> Remove a Admin Data");
+                        System.out.println("\n -----> Press Any key and Enter for Previous Menu\n");
+                        System.out.println();
+                        choice = scanner.nextInt();
+                        switch (choice) {
+                            case 1:
+                                adminController.createAdmin();
+                                break;
+                            case 2:
+                                adminController.removeAdminById();
+                                break;
+                            default:
+                                System.out.println("Previous Menu...");
+                                break;
+                        }
+                    } else {
+                        System.out.println("Invalid Credentials...");
+                    }
+                    break;
+                case 6:
                     System.out.println("Exiting...");
                     exit = false;
                     break;
