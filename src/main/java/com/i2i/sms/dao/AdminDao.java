@@ -1,6 +1,5 @@
 package com.i2i.sms.dao;
 
-import com.i2i.sms.models.Cabin;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;

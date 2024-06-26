@@ -43,16 +43,28 @@ public class AdminController {
      * </p>
      * @return true if credentials are valid, otherwise false.
      */
-    public static boolean adminValidate() {
+    public boolean adminValidate() {
+        StringBuilder suspiciousUser = new StringBuilder(new String());
         Dotenv dotenv = Dotenv.load();
         String userName = dotenv.get("user");
         String password = dotenv.get("password");
-        System.out.println("\nEnter UserName :");
-        String user = scanner.next();
-        System.out.println("\nEnter Password :");
-        String key = scanner.next();
-        System.out.print("\n");
-        return user.equals(userName) && key.equals(password);
+        for (int i = 2;i >= 0;i--) {
+            System.out.println("\nEnter UserName :");
+            String user = scanner.next();
+            System.out.println("\nEnter Password :");
+            String key = scanner.next();
+            System.out.print("\n");
+            if (user.equals(userName) && key.equals(password)) {
+                return true;
+            }
+            else {
+                suspiciousUser.append(user);
+                suspiciousUser.append(" ");
+                System.out.println("Invalid Credentials provided, you have " + i + " attempts left\n");
+            }
+        }
+        logger.warn("Suspicious Activity Detected with Usernames : {} ",suspiciousUser);
+        return false;
     }
 
     /**
@@ -69,6 +81,7 @@ public class AdminController {
             System.out.println("\nEnter Password :");
             String key = scanner.next();
             System.out.print("\n");
+            logger.info("Details entered by the admin : {}",user);
             Admin admin = adminService.createAdmin(user,key);
             System.out.println("Admin added successfully.");
             System.out.println("\n" + admin);

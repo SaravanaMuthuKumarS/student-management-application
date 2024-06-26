@@ -23,7 +23,7 @@ public class StudentDao {
      * <p>
      * This method is used search the students details by it's id from the database.
      * </p>
-     * @param id Id of the student in integer type.
+     * @param id id of the student in integer type.
      * @return student - Student object.
      * @throws StudentManagementException When error occurs in Search process.
      */
@@ -64,7 +64,7 @@ public class StudentDao {
      * <p>
      * This method is used remove the students details by Id from the database.
      * </p>
-     * @param id Id of the student to be removed in integer type.
+     * @param id id of the student to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
      * @retrun true when removed false otherwise.
      */
@@ -74,6 +74,7 @@ public class StudentDao {
             transaction = session.beginTransaction();
             Student student = session.get(Student.class, id);
             if (student != null) {
+                student.getGroup().getStudents().remove(student);
                 session.delete(student);
                 transaction.commit();
                 return true;
@@ -81,7 +82,7 @@ public class StudentDao {
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
             throw new StudentManagementException("Error Occured While deleting Student Record "
-                    + "with id : " + id);
+                    + "with id : " + id, e);
         }
         return false;
     }

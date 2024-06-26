@@ -165,7 +165,7 @@ public class Main {
                     }
                     break;
                 case 5:
-                    if (AdminController.adminValidate()) {
+                    if (adminController.adminValidate()) {
                         System.out.println("\n 1--> Add a Admin Data");
                         System.out.println("\n 2--> Remove a Admin Data");
                         System.out.println("\n 3--> Fetch all Admin Details");
