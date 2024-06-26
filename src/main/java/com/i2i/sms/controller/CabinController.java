@@ -3,6 +3,9 @@ package com.i2i.sms.controller;
 import java.util.List;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Cabin;
 import com.i2i.sms.service.CabinService;
@@ -17,6 +20,7 @@ import com.i2i.sms.service.CabinService;
 public class CabinController {
 
     private static Scanner scanner = new Scanner(System.in);
+    private final Logger logger = LoggerFactory.getLogger(CabinController.class);
     private CabinService cabinService = new CabinService();
 
     /**
@@ -37,6 +41,7 @@ public class CabinController {
                 System.out.println("No Cabin Data found while fetching...");
             }
         } catch (StudentManagementException e) {
+            logger.error(e.getMessage(),"\n",e);
             System.out.println(e.getMessage());
         }
     }
@@ -60,6 +65,7 @@ public class CabinController {
                 System.out.println("No Cabin Data found on ID - " + searchId);
             }
         } catch (StudentManagementException e) {
+            logger.error(e.getMessage(),"\n",e);
             System.out.println(e.getMessage());
         }
     }

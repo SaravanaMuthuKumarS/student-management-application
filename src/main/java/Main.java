@@ -1,8 +1,13 @@
 import java.util.Scanner;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.i2i.sms.controller.*;
+import com.i2i.sms.controller.AdminController;
+import com.i2i.sms.controller.CabinController;
+import com.i2i.sms.controller.GroupController;
+import com.i2i.sms.controller.StudentController;
+import com.i2i.sms.controller.TeacherController;
 
 /**
  * <p>
@@ -16,30 +21,12 @@ import com.i2i.sms.controller.*;
 public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static AdminController adminController = new AdminController();
     private static CabinController cabinController = new CabinController();
     private static GroupController groupController = new GroupController();
     private static StudentController studentController = new StudentController();
     private static TeacherController teacherController = new TeacherController();
-
-    /**
-     * <p>
-     * Validates admin credentials by checking the username and password that user enters.
-     * </p>
-     *
-     * @return true if credentials are valid, otherwise false.
-     */
-    public static boolean adminValidate() {
-        Dotenv dotenv = Dotenv.load();
-        String userName = dotenv.get("user");
-        String password = dotenv.get("password");
-        System.out.println("\nEnter UserName :");
-        String user = scanner.next();
-        System.out.println("\nEnter Password :");
-        String key = scanner.next();
-        System.out.print("\n");
-        return user.equals(userName) && key.equals(password);
-    }
 
     public static void main(String[] args) {
         boolean exit = true;
@@ -178,9 +165,10 @@ public class Main {
                     }
                     break;
                 case 5:
-                    if (adminValidate()) {
+                    if (AdminController.adminValidate()) {
                         System.out.println("\n 1--> Add a Admin Data");
                         System.out.println("\n 2--> Remove a Admin Data");
+                        System.out.println("\n 3--> Fetch all Admin Details");
                         System.out.println("\n -----> Press Any key and Enter for Previous Menu\n");
                         System.out.println();
                         choice = scanner.nextInt();
@@ -190,6 +178,9 @@ public class Main {
                                 break;
                             case 2:
                                 adminController.removeAdminById();
+                                break;
+                            case 3:
+                                adminController.fetchAllAdmins();
                                 break;
                             default:
                                 System.out.println("Previous Menu...");

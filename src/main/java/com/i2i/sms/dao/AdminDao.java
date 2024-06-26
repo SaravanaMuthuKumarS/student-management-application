@@ -1,5 +1,6 @@
 package com.i2i.sms.dao;
 
+import com.i2i.sms.models.Cabin;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -7,6 +8,8 @@ import org.hibernate.query.Query;
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Admin;
 import com.i2i.sms.helper.HibernateManagement;
+
+import java.util.List;
 
 public class AdminDao {
     /**
@@ -78,5 +81,20 @@ public class AdminDao {
                     + id);
         }
         return false;
+    }
+
+    /**
+     * <p>
+     * This method is used fetch the admin details from the database.
+     * </p>
+     * @return - List of Cabin objects.
+     * @throws StudentManagementException When error occurs in fetching process.
+     */
+    public List<Admin> fetchAllAdmins() throws StudentManagementException {
+        try (Session session = HibernateManagement.getSessionFactory().openSession()) {
+            return session.createQuery("From Admin", Admin.class).list();
+        } catch (Exception e) {
+            throw new StudentManagementException("Error Occured While Fetching the Admin Records ");
+        }
     }
 }

@@ -20,7 +20,7 @@ public class CabinService {
      * <p>
      * This method is used fetch the cabin details from the database.
      * </p>
-     * @return - Array of Cabin objects from dao.
+     * @return - List of Cabin objects from dao.
      * @throws StudentManagementException When error occurs in fetching process.
      */
     public List<Cabin> fetchAllCabins() throws StudentManagementException {

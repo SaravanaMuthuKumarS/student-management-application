@@ -3,6 +3,9 @@ package com.i2i.sms.controller;
 import java.util.List;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Group;
 import com.i2i.sms.service.GroupService;
@@ -19,6 +22,7 @@ import com.i2i.sms.utils.ValidateDataUtils;
 public class GroupController {
 
   private static Scanner scanner = new Scanner(System.in);
+  private final Logger logger = LoggerFactory.getLogger(GroupController.class);
   private GroupService groupService = new GroupService();
 
   /**
@@ -51,10 +55,12 @@ public class GroupController {
       }
       section = section.toUpperCase();
 
+      logger.info("Entered Details by the User : \n Standard - {} and Section - {} ", standard, section);
       System.out.println("\nCreating Group...\n");
       Group group = groupService.getOrCreateGroup(standard, section);
       System.out.println("\n" + group);
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),"\n",e);
       System.out.println(e.getMessage());
     }
   }
@@ -77,6 +83,7 @@ public class GroupController {
         System.out.println("No Group Data found while fetching...");
       }
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),"\n",e);
       System.out.println(e.getMessage());
     }
   }
@@ -101,6 +108,7 @@ public class GroupController {
         System.out.println("No Group Data found on ID - " + searchId);
       }
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),"\n",e);
       System.out.println(e.getMessage());
     }
   }
@@ -123,6 +131,7 @@ public class GroupController {
         System.out.println("No Group Data found on ID - " + removeId);
       }
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),"\n",e);
       System.out.println(e.getMessage());
     }
   }

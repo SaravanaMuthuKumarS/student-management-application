@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Group;
 import com.i2i.sms.models.Teacher;
-import com.i2i.sms.service.GroupService;
 import com.i2i.sms.service.TeacherService;
 import com.i2i.sms.utils.ValidateDataUtils;
 
@@ -23,6 +25,7 @@ import com.i2i.sms.utils.ValidateDataUtils;
 public class TeacherController {
 
     private static Scanner scanner = new Scanner(System.in);
+    private final Logger logger = LoggerFactory.getLogger(TeacherController.class);
     private TeacherService teacherService = new TeacherService();
 
     /**
@@ -93,6 +96,7 @@ public class TeacherController {
                     break;
                 }
             }
+            logger.info("Entered Details by the User : \n Name - {}, Subject Name - {} \n Department - {} and Set of standard and section - {} ", teacherName, subject, department, groups);
             Teacher teacher = teacherService.addTeacher(teacherName, subject, department, groups);
             System.out.println("\nCreating...");
             System.out.println("\nTeacher Data Added to Database...\n");
@@ -100,6 +104,7 @@ public class TeacherController {
             System.out.println(teacher.getCabin());
             System.out.println(groups);
         } catch (StudentManagementException e) {
+            logger.error(e.getMessage(),"\n",e);
             System.out.println(e.getMessage());
         }
     }
@@ -122,6 +127,7 @@ public class TeacherController {
                 System.out.println("No Teacher Data found while fetching...");
             }
         } catch (StudentManagementException e) {
+            logger.error(e.getMessage(),"\n",e);
             System.out.println(e.getMessage());
         }
     }
@@ -146,6 +152,7 @@ public class TeacherController {
                 System.out.println("No Teacher Data found on ID - " + searchId);
             }
         } catch (StudentManagementException e) {
+            logger.error(e.getMessage(),"\n",e);
             System.out.println(e.getMessage());
         }
     }
@@ -168,6 +175,7 @@ public class TeacherController {
                 System.out.println("No Teacher Data found on ID - " + removeId);
             }
         } catch (StudentManagementException e) {
+            logger.error(e.getMessage(),"\n",e);
             System.out.println(e.getMessage());
         }
     }

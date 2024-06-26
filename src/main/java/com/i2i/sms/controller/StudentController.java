@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Group;
 import com.i2i.sms.models.Student;
@@ -22,6 +25,7 @@ import com.i2i.sms.utils.ValidateDataUtils;
 public class StudentController {
 
   private static Scanner scanner = new Scanner(System.in);
+  private final Logger logger = LoggerFactory.getLogger(StudentController.class);
   private StudentService studentService = new StudentService();
 
   /**
@@ -44,12 +48,13 @@ public class StudentController {
         System.out.println("Invalid String input for Student Name..");
       }
 
-      System.out.println("Enter your Date of Birth as YYYY-MM-DD :");
-      dob = scanner.next();
-      while (!(DateUtils.isValidDate(dob))) {
-        System.out.println("Invalid Date Format...Enter as Accepted : YYYY-MM-DD ");
-        System.out.println("Enter Date of Birth :");
+      while (true) {
+        System.out.println("Enter your Date of Birth as YYYY-MM-DD :");
         dob = scanner.next();
+        if ((DateUtils.isValidDate(dob))) {
+          break;
+        }
+        System.out.println("Invalid Date Format...Enter as Accepted : YYYY-MM-DD ");
       }
       LocalDate dateOfBirth = LocalDate.parse(dob);
 
@@ -72,12 +77,14 @@ public class StudentController {
       }
       section = section.toUpperCase();
 
+      logger.info("Entered Details by the User : \n Name - {}, Date of Birth - {} \n Standard - {} and Section - {} ", name, dob, standard, section);
       Group group = studentService.getOrCreateGroup(standard, section);
       Student student = studentService.addStudent(name, dateOfBirth, group);
       System.out.println("Student added successfully.");
       System.out.println("\n" + student);
       System.out.println(student.getGroup());
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),e);
       System.out.println(e.getMessage());
     }
   }
@@ -100,6 +107,7 @@ public class StudentController {
         System.out.println("No Student Data found while fetching...");
       }
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),"\n",e);
       System.out.println(e.getMessage());
     }
   }
@@ -123,6 +131,7 @@ public class StudentController {
         System.out.println("No Student Data found on ID - " + searchId);
       }
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),"\n",e);
       System.out.println(e.getMessage());
     }
   }
@@ -145,6 +154,7 @@ public class StudentController {
         System.out.println("No Student Data found on ID - " + removeId);
       } 
     } catch (StudentManagementException e) {
+      logger.error(e.getMessage(),"\n",e);
       System.out.println(e.getMessage());
     }
   }

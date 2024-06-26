@@ -4,8 +4,11 @@ import com.i2i.sms.dao.AdminDao;
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.helper.HibernateManagement;
 import com.i2i.sms.models.Admin;
+import com.i2i.sms.models.Cabin;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class AdminService {
     private AdminDao adminDao = new AdminDao();
@@ -48,5 +51,16 @@ public class AdminService {
      */
     public boolean removeAdminById(int id) throws StudentManagementException {
         return adminDao.removeAdminById(id);
+    }
+
+    /**
+     * <p>
+     * This method is used fetch the Admin details from the database.
+     * </p>
+     * @return - List of Cabin objects from dao.
+     * @throws StudentManagementException When error occurs in fetching process.
+     */
+    public List<Admin> fetchAllAdmins() throws StudentManagementException {
+        return adminDao.fetchAllAdmins();
     }
 }
