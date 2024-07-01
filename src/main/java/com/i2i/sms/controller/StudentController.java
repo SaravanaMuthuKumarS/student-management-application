@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Group;
@@ -13,11 +15,6 @@ import com.i2i.sms.models.Student;
 import com.i2i.sms.service.StudentService;
 import com.i2i.sms.utils.DateUtils;
 import com.i2i.sms.utils.ValidateDataUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 /**
  * <p>

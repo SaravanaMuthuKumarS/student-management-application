@@ -35,7 +35,7 @@ public class CabinDao {
             logger.debug("Process started : Fetching all the cabins from database");
             return session.createQuery("From Cabin", Cabin.class).list();
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While Fetching the Cabin Records", e);
+            throw new StudentManagementException("Error Occurred While Fetching the Cabin Records", e);
         }
     }
 
@@ -43,7 +43,7 @@ public class CabinDao {
      * <p>
      * This method is used search the cabin details by it's id from the database.
      * </p>
-     * @param id Id of the cabin to be searched in integer type.
+     * @param id id of the cabin to be searched in integer type.
      * @return cabin - Cabin object.
      * @throws StudentManagementException When error occurs in searching process.
      */
@@ -54,8 +54,8 @@ public class CabinDao {
             Hibernate.initialize(cabin.getTeacher());
             return cabin;
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While Searching Cabin Record with Id : "
-                    + id);
+            throw new StudentManagementException("Error Occurred While Searching Cabin Record with Id : "
+                    + id, e);
         }
     }
 }

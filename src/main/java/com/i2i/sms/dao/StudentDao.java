@@ -35,10 +35,9 @@ public class StudentDao {
     public Student searchStudentById(int id) throws StudentManagementException {
         try (Session session = HibernateManagement.getSessionFactory().openSession()) {
             logger.debug("Received input: Student id {} to search in the database", id);
-            Student student = session.get(Student.class, id);
-            return student;
+            return session.get(Student.class, id);
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While searching Student Record with ID "
+            throw new StudentManagementException("Error Occurred While searching Student Record with ID "
                     + id, e);
         }
     }
@@ -61,8 +60,7 @@ public class StudentDao {
             return student;
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            e.printStackTrace();
-            throw new StudentManagementException("Error Occured While inserting Student Record for "
+            throw new StudentManagementException("Error Occurred While inserting Student Record for "
                     + "student : " + student.getName(), e);
         }
     }
@@ -73,7 +71,7 @@ public class StudentDao {
      * </p>
      * @param id id of the student to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
-     * @retrun true when removed false otherwise.
+     * @return true when removed false otherwise.
      */
     public boolean removeStudentById(int id) throws StudentManagementException {
         Transaction transaction = null;
@@ -89,7 +87,7 @@ public class StudentDao {
             }
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            throw new StudentManagementException("Error Occured While deleting Student Record "
+            throw new StudentManagementException("Error Occurred While deleting Student Record "
                     + "with id : " + id, e);
         }
         return false;
@@ -105,10 +103,9 @@ public class StudentDao {
     public List<Student> fetchAllStudents() throws StudentManagementException {
         try (Session session = HibernateManagement.getSessionFactory().openSession()) {
             logger.debug("Process started : Fetch all the students from database");
-            List<Student> students = session.createQuery("From Student", Student.class).list();
-            return students;
+            return session.createQuery("From Student", Student.class).list();
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While Fetching Students Record ", e);
+            throw new StudentManagementException("Error Occurred While Fetching Students Record ", e);
         }
     }
 }

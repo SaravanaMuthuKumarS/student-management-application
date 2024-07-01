@@ -3,6 +3,8 @@ package com.i2i.sms.service;
 import java.util.List;
 import java.time.LocalDate;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class StudentService {
     private GroupService groupService;
     @Autowired
     private StudentDao studentDao;
+    private final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     /**
      * <p>
@@ -39,6 +42,7 @@ public class StudentService {
             throws StudentManagementException {
         Student student = new Student(name, dob);
         student.setGroup(group);
+        logger.debug("Process started : Student object for: Name - {}, DOB - {} created and sent for insertion in database.", student.getName(), student.getDob());
         return studentDao.createStudent(student);
     }
 
@@ -46,7 +50,7 @@ public class StudentService {
      * <p>
      * This method is used to fetch all the students details from the database.
      * </p>
-     * @return Array of Student objects from dao.
+     * @return List of Student objects from dao.
      * @throws StudentManagementException When error occurs in fetching process.
      */
     public List<Student> fetchAllStudents() throws StudentManagementException {
@@ -57,7 +61,7 @@ public class StudentService {
      * <p>
      * This method is used to search the students detail by it's id from the database.
      * </p>
-     * @param id Id of the student to be searched in integer type.
+     * @param id id of the student to be searched in integer type.
      * @return Student object from dao.
      * @throws StudentManagementException When error occurs in Search process.
      */
@@ -69,9 +73,9 @@ public class StudentService {
      * <p>
      * This method is used to remove the students detail by Id from the database.
      * </p>
-     * @param id Id of the student to be removed in integer type.
+     * @param id id of the student to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
-     * @retrun true when removed false otherwise.
+     * @return true when removed false otherwise.
      */
     public boolean removeStudentById(int id) throws StudentManagementException {
         return studentDao.removeStudentById(id);

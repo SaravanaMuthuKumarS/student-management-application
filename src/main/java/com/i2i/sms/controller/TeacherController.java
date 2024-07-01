@@ -26,8 +26,7 @@ import com.i2i.sms.utils.ValidateDataUtils;
  */
 @Controller
 public class TeacherController {
-
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private final Logger logger = LoggerFactory.getLogger(TeacherController.class);
     @Autowired
     private TeacherService teacherService;

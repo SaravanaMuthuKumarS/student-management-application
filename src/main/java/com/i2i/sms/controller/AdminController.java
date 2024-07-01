@@ -3,22 +3,35 @@ package com.i2i.sms.controller;
 import java.util.List;
 import java.util.Scanner;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Admin;
 import com.i2i.sms.service.AdminService;
 
+/**
+ * <p>
+ * AdminController class handles the interaction between the Master admin and the admins.
+ * It provides various functionalities such as Viewing all the admin records that were inserted,
+ * Adding a admin details, and removing admin data from the database.
+ * </p>
+ */
 @Controller
+@PropertySource("classpath:application.properties")
 public class AdminController {
     @Autowired
     private AdminService adminService;
     private final Logger logger = LoggerFactory.getLogger(AdminController.class);
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    @Value("${appAdmin}")
+    private String master;
+    @Value("${password}")
+    private String password;
 
     /**
      * <p>
@@ -49,16 +62,13 @@ public class AdminController {
      */
     public boolean adminValidate() {
         StringBuilder suspiciousUser = new StringBuilder(new String());
-        Dotenv dotenv = Dotenv.load();
-        String userName = dotenv.get("user");
-        String password = dotenv.get("password");
         for (int i = 2;i >= 0;i--) {
             System.out.println("\nEnter UserName :");
             String user = scanner.next();
             System.out.println("\nEnter Password :");
             String key = scanner.next();
             System.out.print("\n");
-            if (user.equals(userName) && key.equals(password)) {
+            if (user.equals(master) && key.equals(password)) {
                 return true;
             }
             else {

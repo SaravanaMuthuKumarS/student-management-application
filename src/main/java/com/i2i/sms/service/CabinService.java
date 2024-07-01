@@ -34,7 +34,7 @@ public class CabinService {
      * <p>
      * This method is used search the cabin details by it's id from the database.
      * </p>
-     * @param id Id of the cabin to be searched in integer type.
+     * @param id id of the cabin to be searched in integer type.
      * @return Cabin object from dao.
      * @throws StudentManagementException When error occurs in searching process.
      */

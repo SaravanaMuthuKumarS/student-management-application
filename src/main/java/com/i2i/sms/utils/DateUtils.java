@@ -29,8 +29,7 @@ public final class DateUtils {
      **/
     public static int findDifference(LocalDate date) {
         LocalDate currentDate = LocalDate.now();
-        int yearsDifference = (Period.between(date, currentDate)).getYears();
-        return yearsDifference;
+        return (Period.between(date, currentDate)).getYears();
     }
 
     /**
@@ -49,5 +48,3 @@ public final class DateUtils {
         }
     }
 }
-
-

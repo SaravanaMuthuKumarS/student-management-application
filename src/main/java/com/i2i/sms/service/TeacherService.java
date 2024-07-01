@@ -3,9 +3,12 @@ package com.i2i.sms.service;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.i2i.sms.dao.CabinDao;
 import com.i2i.sms.dao.TeacherDao;
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Cabin;
@@ -25,6 +28,7 @@ public class TeacherService {
     private GroupService groupService;
     @Autowired
     private TeacherDao teacherDao;
+    private final Logger logger = LoggerFactory.getLogger(TeacherService.class);
 
     /**
      * <p>
@@ -44,6 +48,7 @@ public class TeacherService {
         Cabin cabin = new Cabin(department);
         cabin.setTeacher(teacher);
         teacher.setCabin(cabin);
+        logger.debug("Process started : Teacher object: {} created and sent for insertion in database.", teacher);
         return teacherDao.saveTeacher(teacher);
     }
 
@@ -51,7 +56,7 @@ public class TeacherService {
      * <p>
      * This method is used fetch the teacher details from the database.
      * </p>
-     * @return Array of Teacher objects from dao.
+     * @return List of Teacher objects from dao.
      * @throws StudentManagementException When error occurs in fetching process.
      */
     public List<Teacher> fetchAllTeachers() throws StudentManagementException {
@@ -62,7 +67,7 @@ public class TeacherService {
      * <p>
      * This method is used search the teacher details by it's id from the database.
      * </p>
-     * @param id Id of the teacher to be searched in integer type.
+     * @param id id of the teacher to be searched in integer type.
      * @return Teacher object from dao.
      * @throws StudentManagementException When error occurs in searching process.
      */
@@ -74,7 +79,7 @@ public class TeacherService {
      * <p>
      * This method is used remove the teacher details by Id from the database.
      * </p>
-     * @param id Id of the teacher to be removed in integer type.
+     * @param id id of the teacher to be removed in integer type.
      * @return true if record deleted else false.
      * @throws StudentManagementException When error occurs in deletion process.
      */

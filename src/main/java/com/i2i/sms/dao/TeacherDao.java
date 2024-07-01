@@ -42,7 +42,7 @@ public class TeacherDao {
             return teacher;
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            throw new StudentManagementException("Error Occured While inserting teacher record : "
+            throw new StudentManagementException("Error Occurred While inserting teacher record : "
                     + teacher.getName(), e);
         }
     }
@@ -51,7 +51,7 @@ public class TeacherDao {
      * <p>
      * This method is used search the teacher details by it's id from the database.
      * </p>
-     * @param id Id of the teacher in integer type.
+     * @param id id of the teacher in integer type.
      * @return teacher - Teacher object.
      * @throws StudentManagementException When error occurs in searching process.
      */
@@ -63,7 +63,7 @@ public class TeacherDao {
             Hibernate.initialize(teacher.getGroups());
             return teacher;
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While Searching teacher record with Id "
+            throw new StudentManagementException("Error Occurred While Searching teacher record with Id "
                     + id, e);
         }
     }
@@ -72,7 +72,7 @@ public class TeacherDao {
      * <p>
      * This method is used remove the teacher details by Id from the database.
      * </p>
-     * @param id Id of the teacher to be removed in integer type.
+     * @param id id of the teacher to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
      */
     public boolean removeTeacherById(int id) throws StudentManagementException {
@@ -88,7 +88,7 @@ public class TeacherDao {
             }
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            throw new StudentManagementException("Error Occured While deleting teacher record with Id : "
+            throw new StudentManagementException("Error Occurred While deleting teacher record with Id : "
                     + id, e);
         }
         return false;
@@ -104,10 +104,9 @@ public class TeacherDao {
     public List<Teacher> fetchAllTeachers() throws StudentManagementException {
         try (Session session = HibernateManagement.getSessionFactory().openSession()) {
             logger.debug("Process started : Fetching all the teachers from database");
-            List<Teacher> Teachers = session.createQuery("From Teacher", Teacher.class).list();
-            return Teachers;
+            return session.createQuery("From Teacher", Teacher.class).list();
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While fetching teacher records ", e);
+            throw new StudentManagementException("Error Occurred While fetching teacher records ", e);
         }
     }
 }

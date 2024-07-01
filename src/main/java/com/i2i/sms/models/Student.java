@@ -1,7 +1,16 @@
 package com.i2i.sms.models;
 
 import java.time.LocalDate;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.i2i.sms.utils.DateUtils;
 
@@ -21,7 +30,7 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
     @Column(name = "dob", nullable = false)
@@ -76,6 +85,7 @@ public class Student {
      * Prints the string representation of the Student Object, including the Student's data
      * Such as id, name, date of birth and age using String Builder.
      * </p>
+     *
      * @return String representation of the Student Data.
      */
     public String toString() {

@@ -1,5 +1,7 @@
 package com.i2i.sms.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -11,8 +13,14 @@ import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Admin;
 import com.i2i.sms.helper.HibernateManagement;
 
-import java.util.List;
-
+/**
+ * <p>
+ * AdminDao class uses hql queries to create, fetch and remove admin details.
+ * It provides various functionalities such as accepting and adding admin details,
+ * Viewing all the records that were inserted and
+ * Removing admin data from the database.
+ * </p>
+ */
 @Repository
 public class AdminDao {
     private final Logger logger = LoggerFactory.getLogger(AdminDao.class);
@@ -21,7 +29,6 @@ public class AdminDao {
      * <p>
      * This method is used check the admin credentials validation in the database.
      * </p>
-     *
      * @param name     Username in String format.
      * @param password password in String format
      * @return true - if Admin found false otherwise.
@@ -35,7 +42,7 @@ public class AdminDao {
             query.setParameter("password", password);
             return null != query.uniqueResult();
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While searching admin Record with UserName :"
+            throw new StudentManagementException("Error Occurred While searching admin Record with UserName :"
                     + name, e);
         }
     }
@@ -44,7 +51,6 @@ public class AdminDao {
      * <p>
      * This method is used insert the Admin details into the database.
      * </p>
-     *
      * @param admin Admin object.
      * @return admin - Admin object.
      * @throws StudentManagementException When error occurs in insertion process.
@@ -59,8 +65,7 @@ public class AdminDao {
             return admin;
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            e.printStackTrace();
-            throw new StudentManagementException("Error Occured While inserting Admin Record for "
+            throw new StudentManagementException("Error Occurred While inserting Admin Record for "
                     + "Admin : " + admin.getUserName(), e);
         }
     }
@@ -70,9 +75,9 @@ public class AdminDao {
      * This method is used remove the admin details by Id from the database.
      * </p>
      *
-     * @param id Id of the admin to be removed in integer type.
+     * @param id id of the admin to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
-     * @retrun true when removed false otherwise.
+     * @return true when removed false otherwise.
      */
     public boolean removeAdminById(int id) throws StudentManagementException {
         Transaction transaction = null;
@@ -87,7 +92,7 @@ public class AdminDao {
             }
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            throw new StudentManagementException("Error Occured While deleting Admin Record with Id : "
+            throw new StudentManagementException("Error Occurred While deleting Admin Record with Id : "
                     + id, e);
         }
         return false;
@@ -106,7 +111,7 @@ public class AdminDao {
             logger.debug("Process started : Fetching all the admins from database");
             return session.createQuery("From Admin", Admin.class).list();
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While Fetching the Admin Records ", e);
+            throw new StudentManagementException("Error Occurred While Fetching the Admin Records ", e);
         }
     }
 }

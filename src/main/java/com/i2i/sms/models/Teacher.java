@@ -2,17 +2,17 @@ package com.i2i.sms.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * <p>
@@ -30,10 +30,10 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "subject", nullable = false)
+    @Column(name = "subject", nullable = false, length = 30)
     private String subject;
 
     @OneToOne(mappedBy = "teacher", cascade = CascadeType.ALL)

@@ -52,7 +52,7 @@ public class GroupDao {
             }
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            throw new StudentManagementException("Error Occured While inserting Group Record with Standard"
+            throw new StudentManagementException("Error Occurred While inserting Group Record with Standard"
                     + " - Section : " + group.getStandard() + " - " + group.getSection(), e);
         }
     }
@@ -61,7 +61,7 @@ public class GroupDao {
      * <p>
      * This method is used search the group details by it's id from the database.
      * </p>
-     * @param id Id of the student to be searched in integer type.
+     * @param id id of the student to be searched in integer type.
      * @return group - Group object.
      * @throws StudentManagementException When error occurs in searching process.
      */
@@ -73,7 +73,7 @@ public class GroupDao {
             Hibernate.initialize(group.getTeachers());
             return group;
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While searching Group Record with ID "
+            throw new StudentManagementException("Error Occurred While searching Group Record with ID "
                     + id, e);
         }
     }
@@ -88,10 +88,9 @@ public class GroupDao {
     public List<Group> fetchAllGroups() throws StudentManagementException {
         try (Session session = HibernateManagement.getSessionFactory().openSession()) {
             logger.debug("Process started : Fetching all the groups from the database");
-            List<Group> groups = session.createQuery("From Group", Group.class).list();
-            return groups;
+            return session.createQuery("From Group", Group.class).list();
         } catch (Exception e) {
-            throw new StudentManagementException("Error Occured While Fetching Groups Record ", e);
+            throw new StudentManagementException("Error Occurred While Fetching Groups Record ", e);
         }
     }
 
@@ -99,9 +98,9 @@ public class GroupDao {
      * <p>
      * This method is used remove the group details by Id from the database.
      * </p>
-     * @param id Id of the group to be removed in integer type.
+     * @param id id of the group to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
-     * @retrun true when removed false otherwise.
+     * @return true when removed false otherwise.
      */
     public boolean removeGroupById(int id) throws StudentManagementException {
         Transaction transaction = null;
@@ -116,7 +115,7 @@ public class GroupDao {
             }
         } catch (Exception e) {
             HibernateManagement.rollbackTransaction(transaction);
-            throw new StudentManagementException("Error Occured While deleting Group Record with Id : "
+            throw new StudentManagementException("Error Occurred While deleting Group Record with Id : "
                     + id, e);
         }
         return false;

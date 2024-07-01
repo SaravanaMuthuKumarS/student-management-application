@@ -23,8 +23,7 @@ import com.i2i.sms.utils.ValidateDataUtils;
  */
 @Controller
 public class GroupController {
-
-  private static Scanner scanner = new Scanner(System.in);
+  private Scanner scanner = new Scanner(System.in);
   private final Logger logger = LoggerFactory.getLogger(GroupController.class);
   @Autowired
   private GroupService groupService;

@@ -22,7 +22,7 @@ import com.i2i.sms.service.CabinService;
 @Controller
 public class CabinController {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private final Logger logger = LoggerFactory.getLogger(CabinController.class);
     @Autowired
     private CabinService cabinService;

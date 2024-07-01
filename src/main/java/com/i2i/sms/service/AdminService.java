@@ -1,5 +1,9 @@
 package com.i2i.sms.service;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,12 +11,12 @@ import com.i2i.sms.dao.AdminDao;
 import com.i2i.sms.exception.StudentManagementException;
 import com.i2i.sms.models.Admin;
 
-import java.util.List;
-
 @Service
 public class AdminService {
     @Autowired
     private AdminDao adminDao;
+    private final Logger logger = LoggerFactory.getLogger(AdminService.class);
+
 
     /**
      * <p>
@@ -39,6 +43,7 @@ public class AdminService {
      */
     public Admin createAdmin(String userName, String password) throws StudentManagementException {
         Admin admin = new Admin(userName, password);
+        logger.debug("Process started : Admin object for : {} created and sent for insertion in database.", admin.getUserName());
         return adminDao.createAdmin(admin);
     }
 
@@ -46,9 +51,9 @@ public class AdminService {
      * <p>
      * This method is used to remove the Admin data by Id from the database.
      * </p>
-     * @param id Id of the Admin to be removed in integer type.
+     * @param id id of the Admin to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
-     * @retrun true when removed false otherwise.
+     * @return true when removed false otherwise.
      */
     public boolean removeAdminById(int id) throws StudentManagementException {
         return adminDao.removeAdminById(id);

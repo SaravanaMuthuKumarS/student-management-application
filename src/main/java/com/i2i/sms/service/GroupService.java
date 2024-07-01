@@ -2,6 +2,8 @@ package com.i2i.sms.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import com.i2i.sms.models.Group;
 public class GroupService {
     @Autowired
     private GroupDao groupDao;
+    private final Logger logger = LoggerFactory.getLogger(GroupService.class);
 
     /**
      * <p>
@@ -33,6 +36,7 @@ public class GroupService {
     public Group getOrCreateGroup(int standard, String section)
             throws StudentManagementException {
         Group group = new Group(standard, section);
+        logger.debug("Process started : Group object for: {} - {} created and sent for insertion in database.", group.getStandard(), group.getSection());
         return groupDao.getOrCreateGroup(group);
     }
 
@@ -40,7 +44,7 @@ public class GroupService {
      * <p>
      * This method is used to search the group data by it's id from the database.
      * </p>
-     * @param id Id of the student to be searched in integer type.
+     * @param id id of the student to be searched in integer type.
      * @return Group object from dao.
      * @throws StudentManagementException When error occurs in searching process.
      */
@@ -52,7 +56,7 @@ public class GroupService {
      * <p>
      * This method is used to fetch the group details from the database.
      * </p>
-     * @return Array of Group objects from dao.
+     * @return List of Group objects from dao.
      * @throws StudentManagementException When error occurs in fetching process.
      */
     public List<Group> fetchAllGroups() throws StudentManagementException {
@@ -63,9 +67,9 @@ public class GroupService {
      * <p>
      * This method is used to remove the group data by Id from the database.
      * </p>
-     * @param id Id of the group to be removed in integer type.
+     * @param id id of the group to be removed in integer type.
      * @throws StudentManagementException When error occurs in deletion process.
-     * @retrun true when removed false otherwise.
+     * @return true when removed false otherwise.
      */
     public boolean removeGroupById(int id) throws StudentManagementException {
         return groupDao.removeGroupById(id);

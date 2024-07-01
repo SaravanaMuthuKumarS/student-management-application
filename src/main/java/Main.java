@@ -2,15 +2,15 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.i2i.sms.controller.AdminController;
 import com.i2i.sms.controller.CabinController;
 import com.i2i.sms.controller.GroupController;
 import com.i2i.sms.controller.StudentController;
 import com.i2i.sms.controller.TeacherController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * <p>
@@ -36,6 +36,17 @@ public class Main {
     @Autowired
     private TeacherController teacherController;
 
+    /**
+     * <p>
+     * This method is where the application starts to execute.
+     * It provides all functionalities of the application like:
+     * 1. Creating new student, group and teacher details.
+     * 2. Fetching all the student, group and teacher details
+     * 3. Search for a particular student, group and teacher details.
+     * 4. Remove for a particular student, group and teacher details.
+     * 5. Edit the admin details like add, fetch and delete.
+     * </p>
+     */
     public void startApplication() {
         boolean exit = true;
         int choice;
